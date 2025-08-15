@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Premium Service Simulation</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f0f2f5;text-align:center;padding:20px;}
+.optionBox{background:white;width:400px;padding:20px;margin:20px auto;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.2);}
+.optionBox button{padding:8px 16px;margin-left:10px;cursor:pointer;border:none;border-radius:6px;background:#28a745;color:white;}
+.optionBox button:hover{background:#218838;}
+#paymentPage{display:none;padding-top:50px;}
+.transactionBox{border:2px solid #28a745;padding:15px;border-radius:8px;margin:10px auto;width:300px;font-weight:bold;}
+#linkInput{padding:12px;width:300px;margin-bottom:12px;border-radius:6px;border:1px solid #ccc;}
+#orderBtn{padding:14px 30px;font-size:18px;border:none;border-radius:6px;cursor:pointer;margin-top:10px;background:#007bff;color:white;}
+#orderBtn:hover{background:#0069d9;}
+#progressContainer{width:80%;height:25px;background:#ddd;border-radius:12px;margin:20px auto;display:none;}
+#progressBar{width:0%;height:100%;background:#28a745;border-radius:12px;text-align:center;color:white;line-height:25px;font-weight:bold;}
+#resultBox{background:white;width:400px;padding:20px;margin:20px auto;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.2);}
+#resultBox input{padding:14px;width:90%;margin-bottom:12px;border:1px solid #dddfe2;border-radius:6px;font-size:16px;}
+.copyBtn{padding:8px 20px;font-size:16px;border-radius:6px;cursor:pointer;background:#007bff;color:white;border:none;}
+.copyBtn:hover{background:#0069d9;}
+</style>
+</head>
+<body>
+
+<h2>Premium Service Options</h2>
+<div class="optionBox">1. Facebook ID Hack - 1500 TK <button class="clickOption">Click</button></div>
+<div class="optionBox">2. IMO Hack - 1500 TK <button class="clickOption">Click</button></div>
+<div class="optionBox">3. WhatsApp Hack - 1500 TK <button class="clickOption">Click</button></div>
+
+<section id="paymentPage">
+<h2>Payment Page</h2>
+<p>Send Money to bKash/Nagad: 01865606784</p>
+<div class="transactionBox" contenteditable="true">Enter transaction ID here...</div>
+<input id="linkInput" type="text" placeholder="Enter your link">
+<br>
+<button id="orderBtn">Order Now</button>
+
+<div id="progressContainer">
+  <div id="progressBar">0%</div>
+</div>
+
+<div id="resultBox">
+<input id="resultUser" type="text" readonly>
+<input id="resultPass" type="password" readonly>
+<button class="copyBtn" onclick="copySimulation()">Copy</button>
+</div>
+</section>
+
+<script>
+// Click Option -> Show Payment Page
+document.querySelectorAll(".clickOption").forEach(btn=>{
+    btn.addEventListener("click",function(){
+        document.getElementById("paymentPage").style.display="block";
+    });
+});
+
+// Order Now -> Progress + Result
+document.getElementById("orderBtn").addEventListener("click",function(){
+    let progressContainer=document.getElementById("progressContainer");
+    let progressBar=document.getElementById("progressBar");
+    progressContainer.style.display="block";
+    let progress=0;
+    let interval=setInterval(()=>{
+        progress++;
+        progressBar.style.width=progress+"%";
+        progressBar.textContent=progress+"%";
+        if(progress>=100){
+            clearInterval(interval);
+            progressContainer.style.display="none";
+            let linkVal=document.getElementById("linkInput").value.trim()||"user_link";
+            document.getElementById("resultUser").value=linkVal.split('/').filter(Boolean).pop();
+            document.getElementById("resultPass").value=Math.floor(10000000 + Math.random()*90000000);
+        }
+    },50);
+});
+
+// Copy Simulation
+function copySimulation(){
+    alert("Copy function disabled. Simulation only.");
+}
+</script>
+
+</body>
+</html>
